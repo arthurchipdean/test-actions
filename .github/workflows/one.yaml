@@ -10,11 +10,13 @@
           with:
             node-version: 18
         - name: Cache dependencies
+          id: cache
           uses: actions/cache@v3
           with:
-            path: ~/.npm
+            path: node_modules
             key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
         - name: Install Deps
+          if: steps.cache.outputs.cache-hit != 'true'
           run: npm ci
         - name: Run Lint
           run: npm run lint
@@ -29,11 +31,13 @@
           with:
             node-version: 18
         - name: Cache dependencies
+          id: cache
           uses: actions/cache@v3
           with:
-            path: ~/.npm
+            path: node_modules
             key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
         - name: Install Deps
+          if: steps.cache.outputs.cache-hit != 'true'
           run: npm ci
         - name: Run Tests
           run: npm test
@@ -49,11 +53,13 @@
           with:
             node-version: 18
         - name: Cache dependencies
+          id: cache
           uses: actions/cache@v3
           with:
-            path: ~/.npm
+            path: node_modules
             key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
         - name: Install Deps
+          if: steps.cache.outputs.cache-hit != 'true'
           run: npm ci
         - name: Build App
           run: npm run build
