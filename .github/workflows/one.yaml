@@ -19,6 +19,7 @@
         - name: Run Lint
           run: npm run lint
     test:
+      needs: lint
       runs-on: ubuntu-latest
       steps:
         - name: Get Code
@@ -38,6 +39,7 @@
           run: npm test
 
     build:
+      needs: test
       runs-on: ubuntu-latest
       steps:
         - name: Get Code
